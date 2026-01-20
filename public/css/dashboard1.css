@@ -1,0 +1,33 @@
+.logotrack {
+    width: 130px;
+    height: 130px;
+   
+}
+
+.divtrack{
+    height: 200px;
+    margin-top: auto;
+}
+
+.dash {
+    margin-top: 77px;
+}
+
+#btn_dropdown {
+    width: 100%;
+    background-color: #004aad;
+    border-color: #ffde59;
+    border-width: 3px;
+    font-weight: 450;
+}
+
+.fondoimg {
+    position: absolute;
+    opacity: 0.1;
+    width: 700px;
+    height: auto;
+    top: 150px;
+    left: 55%;
+    top: 10%;
+    transform: translateX(-50%);
+}

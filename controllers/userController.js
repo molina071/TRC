@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const user = require('../models/userModel');
+const user = require('../models/userModel'); //ESTE USER CONTROLER DEBE DE SER EDITADO
 
 const userController = {
 
