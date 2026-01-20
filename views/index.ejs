@@ -22,18 +22,18 @@
         <h3 class="welcome fw-bold">Bienvenido!</h3>
         <img src="/images/logoBus.jpg" alt="logoBus" class="logoBus">
 
-        <form class="px-4 py-3 login">
+        <form action="/user/login" method="post" class="px-4 py-3 login">
             <div class="mb-3">
                 <label for="exampleDropdownFormEmail1" class="form-label fw-bold">Correo</label>
                 <input type="email" class="form-control largo" id="exampleDropdownFormEmail1"
-                    placeholder="email@ejemplo.com">
+                    placeholder="email@ejemplo.com"  name="correo">
             </div>
             <div class="mb-3">
                 <label for="exampleDropdownFormPassword1" class="form-label fw-bold">Contraseña</label>
                 <input type="password" class="form-control largo" id="exampleDropdownFormPassword1"
-                    placeholder="Contraseña">
+                    placeholder="Contraseña" name="contra">
             </div>
-            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <button type="submit" class="btn btn-primary" >Ingresar</button> <!--al momento de hacer submit tiene que hacer un post.                                                                  hace las validaciones -->
         </form>
         <div class="dropdown-divider"></div>
     </div>
