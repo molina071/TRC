@@ -1,0 +1,67 @@
+
+.login {
+    width: 350px;
+    /* Ajusta el ancho del formulario */
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.largo {
+    width: 350px;
+}
+
+.grilla {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height: 620px;
+    width: 400px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 650px;
+
+}
+
+.logoBus {
+    width: 300px;
+    height: 300px;
+    margin-left: 30px;
+
+}
+
+
+.logotrack {
+    width: 220px;
+    height: 180px;
+    margin-top: 0%;
+}
+
+.divHead {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: #ff3131;
+    margin-top: 0%;
+    align-items: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  background-color: #ff3131;
+}
+
+.welcome{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 34px;
+}
