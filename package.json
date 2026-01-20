@@ -1,0 +1,30 @@
+{
+  "name": "trc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molina071/TRC.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/molina071/TRC/issues"
+  },
+  "homepage": "https://github.com/molina071/TRC#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.2",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.16.1",
+    "sequelize": "^6.37.7"
+  }
+}
