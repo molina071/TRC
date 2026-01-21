@@ -27,6 +27,25 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard');
 });
 
+//RUTAS TEMPORALES POR QUE NECESITO HACER CRUD DE COLABORADORES Y DE SUCURSALES
+app.get('/colaboradores', (req, res) => {
+    res.render('colaboradores');
+});
+
+app.get('/sucursales', (req, res) => {
+    res.render('sucursales');
+});
+
+
+app.get('/viajes', (req, res) => {
+    res.render('viajes');
+});
+
+app.get('/reportes', (req, res) => {
+    res.render('reportes');
+});
+
+
 app.post('/user/login', loginController.login);
 /*// Create an user
 app.get('/user/create', userController.createUsersForm);
