@@ -1,0 +1,41 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require("../config/Conexion");
+
+const colaboradores = sequelize.define('colaboradores', {
+    cl_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+    },
+    sc_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    cl_nombre: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    cl_apellido: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    cl_direccion: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+    },
+    cl_distancia: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    cl_estado: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+    }
+}, {
+    tableName: 'colaboradores',
+    freezeTableName: true,
+    timestamps: false,
+    id: false,
+});
+
+module.exports = colaboradores;
