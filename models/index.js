@@ -1,5 +1,5 @@
 // models/index.js
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_URL);
 
 // Importar modelos

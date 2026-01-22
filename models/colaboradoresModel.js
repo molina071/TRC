@@ -2,8 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require("../config/Conexion");
 
 const colaboradores = sequelize.define('colaboradores', {
-    cl_id: {
-        type: DataTypes.INTEGER,
+    cl_cedula: {
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
@@ -21,7 +21,7 @@ const colaboradores = sequelize.define('colaboradores', {
     },
     cl_estado: {
         type: DataTypes.TINYINT,
-        allowNull: false,
+        allowNull: false,   
     }
 }, {
     tableName: 'colaboradores',

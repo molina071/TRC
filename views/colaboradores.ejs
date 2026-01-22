@@ -117,7 +117,8 @@
 
         <!--BARRA DE BUSQUEDA-->
         <div class="input_search d-flex align-items-center gap-2">
-            <form action="" method="" class="px-4 py-3 login"> <!--NO OLVIDAR DEFINIR LA RUTA AQUI Y EL METODO POST-->
+            <form action="" method="" class="px-4 py-3 login">
+                <!--NO OLVIDAR DEFINIR LA RUTA AQUI Y EL METODO POST-->
                 <div class="mb-3">
                     <input type="text" class="input" placeholder="Buscar colaborador..." name="correo"
                         style="width: 1000px;">
@@ -132,32 +133,32 @@
         <div class="overlay" id="overlay">
             <div class="form-container">
                 <h2>Nuevo Colaborador</h2>
-                <form>
+                <form action="/colaboradores/create" method="post">
+
+                    <label for="cl_cedula">Cedula:</label>
+                    <input type="text" id="cl_cedula" name="cedula" maxlength="13" required>
+
                     <label for="sc_id">Sucursal:</label>
-                    <select id="sc_id" name="sc_id" required>
-                        <option value="1">Sucursal Centro</option>
-                        <option value="2">Sucursal Norte</option>
-                        <option value="3">Sucursal Sur</option>
-                        <option value="4">Sucursal Este</option>
+                    <select id="sc_id" name="sucursal" required>
+                        <%sucursales.forEach(sucursal=> { %>
+                            <option value="<%=sucursal.sc_id%>">
+                                <%=sucursal.sc_nombre%>
+                            </option>
+                            <% }); %>
                     </select>
 
                     <label for="cl_nombre">Nombre:</label>
-                    <input type="text" id="cl_nombre" name="cl_nombre" maxlength="50" required>
+                    <input type="text" id="cl_nombre" name="nombre" maxlength="50" required>
 
                     <label for="cl_apellido">Apellido:</label>
-                    <input type="text" id="cl_apellido" name="cl_apellido" maxlength="50" required>
+                    <input type="text" id="cl_apellido" name="apellido" maxlength="50" required>
 
                     <label for="cl_direccion">Dirección:</label>
-                    <textarea id="cl_direccion" name="cl_direccion" required></textarea>
+                    <textarea id="cl_direccion" name="direccion" required></textarea>
 
                     <label for="cl_distancia_km">Distancia (km):</label>
-                    <input type="number" id="cl_distancia_km" name="cl_distancia_km" required>
+                    <input type="number" id="cl_distancia_km" name="distancia" required>
 
-                    <label for="cl_estado">Estado:</label>
-                    <select id="cl_estado" name="cl_estado" required>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
 
                     <button type="submit" class="btn-submit">Guardar</button>
                 </form>
@@ -184,7 +185,7 @@
                     <% colaboradores.forEach(colaborador=> { %>
                         <tr>
                             <td>
-                                <%=colaborador.cl_id%>
+                                <%=colaborador.cl_cedula%>
                             </td>
                             <td>
                                 <%=colaborador.cl_nombre%>
@@ -199,12 +200,19 @@
                                 <%=colaborador.cl_estado%>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm me-2">
-                                    <i class="bi bi-pencil-square"></i> Editar
-                                </button>
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Eliminar
-                                </button>
+                                <form action="/user/update/<%=colaborador.cl_cedula%>" method="get">
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </button>
+                                </form>
+
+
+                                <form action="/user/delete/<%=colaborador.cl_cedula%>" method="get">
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </button>
+                                </form>
+
                             </td>
                         </tr>
                         <% }); %>

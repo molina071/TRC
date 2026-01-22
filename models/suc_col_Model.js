@@ -2,8 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require("../config/Conexion");
 
 const colaborador_sucursal = sequelize.define('colaborador_sucursal', {
-    cl_id: {
-        type: DataTypes.INTEGER,
+    cl_cedula: {
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
     },
@@ -11,7 +11,11 @@ const colaborador_sucursal = sequelize.define('colaborador_sucursal', {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-    }
+    },
+    distancia: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
 }, {
     tableName: 'colaborador_sucursal',
     freezeTableName: true,

@@ -1,5 +1,5 @@
 function applyAssociations(sequelize) {
-  const { colaboradores, rol, sucursales, transportistas, usuarios, viajes, colaborador_sucursal} = sequelize.models;
+  const { colaboradores, rol, sucursales, transportistas, usuarios, viajes, colaborador_sucursal } = sequelize.models;
 
   // Un rol tiene muchos usuarios
   rol.hasMany(usuarios, { foreignKey: "rl_id" });
@@ -22,18 +22,21 @@ function applyAssociations(sequelize) {
   viajes.belongsTo(transportistas, { foreignKey: "tr_id" });
 
   // Relación N:M
+  // En el modelo colaborador
   colaboradores.belongsToMany(sucursales, {
-    through: colaborador_sucursal,
-    foreignKey: 'cl_id',
-    otherKey: 'sc_id',
+    through: 'colaborador_sucursal',
+    as: 'sucursales',
+    foreignKey: 'cl_cedula',
+    otherKey: 'sc_id'
   });
 
+  // En el modelo sucursal1
   sucursales.belongsToMany(colaboradores, {
-    through: colaborador_sucursal,
+    through: 'colaborador_Sucursal',
+    as: 'colaboradores',
     foreignKey: 'sc_id',
-    otherKey: 'cl_id',
+    otherKey: 'cl_cedula',
   });
-
 };
 
 module.exports = { applyAssociations };
