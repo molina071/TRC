@@ -1,20 +1,28 @@
 const express = require('express');
 const app = express();
-const user = require('../models/userModel'); 
+const colaborador = require('../models/colaboradoresModel');
 
-const userController = {
+const colaboradorController = {
 
-    getAllUsers: async (req, res) => {
+    getAllColab: async (req, res) => {
         try {
-            const users = await user.findAll();
-            res.render('index', { users });
-
+            const colaboradores = await colaborador.findAll();      
+            /*{
+                include: [ //aqui añadi
+                    {
+                        model: sucursal,
+                        attributes: ['sc_nombre'],
+                    }
+                ]
+            });//hasta aqui*/
+            res.render('colaboradores', { colaboradores,});
         } catch (error) {
             console.error(error);
             res.status(500).send('Upps.. algo fallo')
         }
     },
 
+    //por aqui voy configurandolo
     createUsersForm: async (req, res) => {
         res.render('create');
     },
@@ -31,7 +39,7 @@ const userController = {
     },
 
     updateUsersForm: async (req, res) => {
-        const { id } = req.params; 
+        const { id } = req.params;
         try {
             const userr = await user.findByPk(id);
             res.render('update', { userr });
@@ -69,4 +77,4 @@ const userController = {
     },
 };
 
-module.exports = userController;
+module.exports = colaboradorController;

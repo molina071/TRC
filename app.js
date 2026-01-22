@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const sequelize = require('./config/Conexion');
 //importacion de controladores.
 const loginController = require('./controllers/loginController');
+const colaboradorController = require('./controllers/colaboradorController');
 
 //const userController = require('./controlador/usuarioControlador');
 const app = express();
@@ -28,14 +29,11 @@ app.get('/dashboard', (req, res) => {
 });
 
 //RUTAS TEMPORALES POR QUE NECESITO HACER CRUD DE COLABORADORES Y DE SUCURSALES
-app.get('/colaboradores', (req, res) => {
-    res.render('colaboradores');
-});
+app.get('/colaboradores', colaboradorController.getAllColab);
 
 app.get('/sucursales', (req, res) => {
     res.render('sucursales');
 });
-
 
 app.get('/viajes', (req, res) => {
     res.render('viajes');

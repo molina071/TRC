@@ -17,7 +17,7 @@ function applyAssociations(sequelize) {
   colaboradores.hasMany(viajes, { foreignKey: "cl_id" });
   viajes.belongsTo(colaboradores, { foreignKey: "cl_id" });
 
-  // Una colaborador aparece en muchos viajes
+  // Una transportista hace muchos viajes
   transportistas.hasMany(viajes, { foreignKey: "tr_id" });
   viajes.belongsTo(transportistas, { foreignKey: "tr_id" });
 

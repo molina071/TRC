@@ -7,10 +7,6 @@ const colaboradores = sequelize.define('colaboradores', {
         primaryKey: true,
         allowNull: false,
     },
-    sc_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
     cl_nombre: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,10 +17,6 @@ const colaboradores = sequelize.define('colaboradores', {
     },
     cl_direccion: {
         type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    cl_distancia: {
-        type: DataTypes.INTEGER,
         allowNull: false,
     },
     cl_estado: {
