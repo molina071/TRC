@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const sequelize = require('./config/Conexion');
+const session = require('express-session');
+
 //importacion de controladores.
 const loginController = require('./controllers/loginController');
 const colaboradorController = require('./controllers/colaboradorController');
@@ -29,6 +31,11 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard');
 });
 
+app.get('/dashboardAdmin', (req, res) => {
+    res.render('dashboardAdmin');
+});
+
+
 //RUTAS TEMPORALES POR QUE NECESITO HACER CRUD DE COLABORADORES Y DE SUCURSALES
 app.get('/colaboradores', colaboradorController.getAllColab);
 app.post('/colaboradores/create', colaboradorController.createColab);
@@ -37,8 +44,12 @@ app.post('/colaboradores/update', colaboradorController.updateColab);
 app.post('/colaboradores/delete/:id', colaboradorController.deleteColab);
 
 app.get('/viajes', (req, res) => {
-    res.render('viajes');
+    if (!req.session.usuario) {
+        return res.redirect('/login'); // si no hay sesión, redirige al login
+    }
+    res.render('dashboard', { usuario: req.session.usuario });
 });
+
 
 app.get('/reportes', (req, res) => {
     res.render('reportes');
