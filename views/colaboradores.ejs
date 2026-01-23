@@ -123,7 +123,8 @@
                     <input type="text" class="input" placeholder="Buscar colaborador..." name="correo"
                         style="width: 1000px;">
                     <button type="submit" class="btn btn-success buscar">Buscar</button>
-                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Crear Usuario</button>
+                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Administrar
+                        Sucursales</button>
                 </div>
             </form>
         </div>
@@ -132,7 +133,7 @@
 
         <div class="overlay" id="overlay">
             <div class="form-container">
-                <h2>Nuevo Colaborador</h2>
+                <h2>Nuevo Registro</h2>
                 <form action="/colaboradores/create" method="post">
 
                     <label for="cl_cedula">Cedula:</label>
@@ -176,7 +177,8 @@
                         <th scope="col">Apellido</th>
                         <th scope="col">Direccion</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Opciones</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
 
                     </tr>
                 </thead>
@@ -200,18 +202,20 @@
                                 <%=colaborador.cl_estado%>
                             </td>
                             <td>
-                                <form action="/user/update/<%=colaborador.cl_cedula%>" method="get">
-                                    <button type="submit" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil"></i> Editar
+
+                                <button class="btn btn-warning btn-editar"
+                                    data-id="<%= colaborador.cl_cedula %>">Editar</button>
+                            </td>
+
+                            <td>
+
+                                <form action="/colaboradores/delete/<%= colaborador.cl_cedula %>" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-pencil"></i> Eliminar
                                     </button>
                                 </form>
 
-
-                                <form action="/user/delete/<%=colaborador.cl_cedula%>" method="get">
-                                    <button type="submit" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </button>
-                                </form>
+                               
 
                             </td>
                         </tr>
@@ -221,23 +225,99 @@
             </table>
         </div>
 
-    </div>
 
-    <script src="/js/colaboradores.js"></script>
+        <!-- NUEVO FORMULARIO OCULTO  PARA EDIT-->
 
-    <!-- CSS de Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <div class="modal fade" id="modalColaborador" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="/colaboradores/update" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar Colaborador</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Cédula</label>
+                                <input type="text" name="up_cedula" id="up_cedula" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>Sucursal</label>
+                                <select name="up_sucursal" id="up_sucursal" class="form-select" required>
 
-    <!-- jQuery primero -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                                    <%sucursales.forEach(sucursal=> { %>
+                                        <option value="<%=sucursal.sc_id%>">
+                                            <%=sucursal.sc_nombre%>
+                                        </option>
+                                        <% }); %>
 
-    <!-- Popper.js después -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-    <!-- JS de Bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label>Nombre</label>
+                                <input type="text" name="up_nombre" id="up_nombre" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>Apellido</label>
+                                <input type="text" name="up_apellido" id="up_apellido" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>Dirección</label>
+                                <input type="text" name="up_direccion" id="up_direccion" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>Distancia (km)</label>
+                                <input type="number" name="up_distancia" id="up_distancia" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 </body>
+
+<script>
+    document.querySelectorAll('.btn-editar').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+
+            // Llamada al backend
+            const res = await fetch(`/colaboradores/update/${id}`);
+            const data = await res.json();
+
+            // Rellenar formulario
+            document.getElementById('up_cedula').value = data.cl_cedula;
+            //document.getElementById('sucursal').value = data.sucursal;
+            document.getElementById('up_nombre').value = data.cl_nombre;
+            document.getElementById('up_apellido').value = data.cl_apellido;
+            document.getElementById('up_direccion').value = data.cl_direccion;
+            document.getElementById('up_distancia').value = 0;
+
+            // Mostrar modal (Bootstrap 5)
+            const modal = new bootstrap.Modal(document.getElementById('modalColaborador'));
+            modal.show();
+        });
+    });
+
+</script>
+
+
+<script src="/js/colaboradores.js"></script>
+
+<!-- CSS de Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Popper.js después -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- JS de Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </html>

@@ -30,16 +30,16 @@ const userController = {
         }
     },
 
-    updateUsersForm: async (req, res) => {
-        const { id } = req.params; 
-        try {
-            const userr = await user.findByPk(id);
-            res.render('update', { userr });
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Server error');
-        }
-    },
+        updateUsersForm: async (req, res) => {
+            const { id } = req.params; 
+            try {
+                const userr = await user.findByPk(id);
+                res.render('update', { userr });
+            } catch (error) {
+                console.error(error);
+                res.status(500).send('Server error');
+            }
+        },
 
     updateUsers: async (req, res) => {
         const { id } = req.params;

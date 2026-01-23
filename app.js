@@ -32,7 +32,9 @@ app.get('/dashboard', (req, res) => {
 //RUTAS TEMPORALES POR QUE NECESITO HACER CRUD DE COLABORADORES Y DE SUCURSALES
 app.get('/colaboradores', colaboradorController.getAllColab);
 app.post('/colaboradores/create', colaboradorController.createColab);
-
+app.get('/colaboradores/update/:id', colaboradorController.updateColabForm);
+app.post('/colaboradores/update', colaboradorController.updateColab);
+app.post('/colaboradores/delete/:id', colaboradorController.deleteColab);
 
 app.get('/viajes', (req, res) => {
     res.render('viajes');
