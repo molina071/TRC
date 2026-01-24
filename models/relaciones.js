@@ -21,22 +21,29 @@ function applyAssociations(sequelize) {
   transportistas.hasMany(viajes, { foreignKey: "tr_id" });
   viajes.belongsTo(transportistas, { foreignKey: "tr_id" });
 
+  sucursales.hasMany(colaborador_sucursal, { foreignKey: 'sc_id' });
+  colaborador_sucursal.belongsTo(sucursales, { foreignKey: 'sc_id' });
+
+  colaboradores.hasMany(colaborador_sucursal, { foreignKey: 'cl_cedula' });
+  colaborador_sucursal.belongsTo(colaboradores, { foreignKey: 'cl_cedula' });
+ 
+
   // Relación N:M
   // En el modelo colaborador
   colaboradores.belongsToMany(sucursales, {
-    through: 'colaborador_sucursal',
-    as: 'sucursales',
+    through: colaborador_sucursal,
     foreignKey: 'cl_cedula',
     otherKey: 'sc_id'
   });
 
   // En el modelo sucursal1
   sucursales.belongsToMany(colaboradores, {
-    through: 'colaborador_Sucursal',
-    as: 'colaboradores',
+    through: colaborador_sucursal,
     foreignKey: 'sc_id',
     otherKey: 'cl_cedula',
   });
+
 };
 
-module.exports = { applyAssociations };
+
+ module.exports = {applyAssociations};

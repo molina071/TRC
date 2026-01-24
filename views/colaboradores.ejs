@@ -11,13 +11,12 @@
 
     <title>dashboard</title>
 
-    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+   
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/dashboard1.css" rel="stylesheet">
     <link href="/css/colaboradores.css" rel="stylesheet">
@@ -28,14 +27,14 @@
 <body id="page-top">
 
 
-    <!-- Page Wrapper -->
+ 
     <div id="wrapper" class="fondo">
 
-        <!-- Sidebar -->
+     
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:  #ff3131;">
 
 
-            <!-- Sidebar - Brand -->
+        
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
@@ -45,10 +44,7 @@
                 </div>
             </a>
 
-            <!-- Divider -->
-
-
-            <!-- Nav Item - Dashboard -->
+            <!-- DIVISOR -->
             <li class="nav-item active dash">
                 <a class="nav-link" href="/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -106,7 +102,7 @@
                 </div>
             </li>
 
-            <!-- Divider -->
+            
             <hr class="sidebar-divider d-none d-md-block">
 
         </ul>
@@ -284,7 +280,7 @@
         btn.addEventListener('click', async () => {
             const id = btn.dataset.id;
 
-            // Llamada al backend
+            
             const res = await fetch(`/colaboradores/update/${id}`);
             const data = await res.json();
 
@@ -296,7 +292,6 @@
             document.getElementById('up_direccion').value = data.cl_direccion;
             document.getElementById('up_distancia').value = 0;
 
-            // Mostrar modal (Bootstrap 5)
             const modal = new bootstrap.Modal(document.getElementById('modalColaborador'));
             modal.show();
         });
@@ -307,16 +302,15 @@
 
 <script src="/js/colaboradores.js"></script>
 
-<!-- CSS de Bootstrap -->
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<!-- jQuery primero -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
-<!-- Popper.js después -->
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
-<!-- JS de Bootstrap -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 

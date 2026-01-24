@@ -36,14 +36,12 @@
     display: inline-block;
     display: flex;
     align-items: center;
-    /* alinea verticalmente */
     gap: 8px;
 }
 
 .input {
     height: 40px;
     flex: 1;
-    /* ocupa todo el espacio disponible */
 }
 
 .buscar {

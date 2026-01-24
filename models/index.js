@@ -11,6 +11,8 @@ require("./viajesModel")(sequelize, DataTypes);
 require("./rolModel")(sequelize, DataTypes);
 require("./suc_col_Model")(sequelize, DataTypes);
 
+console.log(sequelize.models);
+
 const { applyAssociations } = require("./relaciones");
 applyAssociations(sequelize);
 

@@ -20,7 +20,7 @@ const colaborador_sucursal = sequelize.define('colaborador_sucursal', {
     tableName: 'colaborador_sucursal',
     freezeTableName: true,
     timestamps: false,
-    id: false,
+    id: false,  
 });
 
 module.exports = colaborador_sucursal;

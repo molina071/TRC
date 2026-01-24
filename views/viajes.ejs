@@ -11,13 +11,13 @@
 
     <title>dashboard</title>
 
-    <!-- Custom fonts for this template-->
+
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+  
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/dashboard1.css" rel="stylesheet">
     <link href="/css/viajes.css" rel="stylesheet">
@@ -31,16 +31,16 @@
 <body id="page-top">
 
 
-    <!-- Page Wrapper -->
+   
     <div id="wrapper" class="fondo">
 
 
 
-        <!-- Sidebar -->
+        
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:  #ff3131;">
 
 
-            <!-- Sidebar - Brand -->
+          
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
@@ -50,25 +50,24 @@
                 </div>
             </a>
 
-            <!-- Divider -->
+         
 
 
-            <!-- Nav Item - Dashboard -->
+         
             <li class="nav-item active dash">
                 <a class="nav-link" href="/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
+          
             <div class="sidebar-heading ">
                 sucursales, colaboradores
             </div>
 
-            <!-- Gestiones de colaboradores y sucursales -->
+           
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse"
                     aria-expanded="true" aria-controls="collapse">
@@ -86,14 +85,14 @@
                 </div>
             </li>
 
-            <!-- Divider -->
+          
             <hr class="sidebar-divider d-none d-md-block">
 
             <div class="sidebar-heading">
                 viajes, reportes
             </div>
 
-            <!-- Gestiones de viajes y reportes -->
+           
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -125,86 +124,134 @@
                 <div class="card-body">
                     <form id="viajeForm" action="" method="POST">
 
-                        <!-- Usuario que registra -->
+                    
                         <div class="mb-3">
-                            <label class="form-label">Usuario que registra</label>
-                            <input type="text" class="form-control" name="usuario" value="<%= usuario.us_nombre %>" readonly>
+                            <label class="form-label">Viaje Registrado por:</label>
+                            <input type="text" class="form-control" name="usuario_vj" value="<%= usuario.us_nombre %>"
+                                readonly>
                         </div>
 
-                        <!-- Fecha del viaje -->
-                        <div class="mb-3">
-                            <label class="form-label">Fecha del viaje</label>
-                            <input type="date" class="form-control" name="fecha" required>
-                        </div>
-
-                        <!-- Selección de sucursal -->
                         <div class="mb-3">
                             <label class="form-label">Sucursal</label>
-                            <select class="form-select" id="sucursalSelect" name="sucursal_id" required>
-                                <option value="">Seleccione una sucursal...</option>
-                                <option value="1">Sucursal 1</option>
-                                <option value="2">Sucursal 2</option>
-                                <option value="3">Sucursal 3</option>
+                            <select class="form-select" id="sucursalSelect" name="sucursal_vj" required>
+                                <%sucursales.forEach(suc=> { %>
+                                    <option value="<%= suc.sc_id %>">
+                                        <%= suc.sc_nombre %>
+                                    </option>
+                                    <% }); %>
                             </select>
                         </div>
 
-                        <!-- Selección de colaborador -->
+                     
                         <div class="mb-3">
                             <label class="form-label">Colaborador</label>
-                            <select class="form-select" id="colaboradorSelect" name="colaborador_id" required>
-                                <option value="">Seleccione un colaborador...</option>
-                                <option value="1">Colaborador 1</option>
-                                <option value="2">Colaborador 2</option>
-                                <option value="3">Colaborador 3</option>
-                            </select>
+                            <select class="form-select" id="colaboradorSelect" name="colaborador_vj"></select>
                         </div>
 
-                        <!-- Distancia sucursal-casa colaborador -->
+                      
                         <div class="mb-3">
                             <label class="form-label">Distancia (km)</label>
-                            <input type="text" class="form-control" id="distanciaColab" name="distancia" readonly>
+                            <input type="text" class="form-control" id="distanciaColab" name="distancia_vj" readonly>
                         </div>
 
-                        <!-- Selección de transportista -->
+                      
                         <div class="mb-3">
                             <label class="form-label">Transportista</label>
-                            <select class="form-select" id="transportistaSelect" name="transportista_id" required>
-                                <option value="">Seleccione un transportista...</option>
-                                <option value="1">Transportista 1</option>
-                                <option value="2">Transportista 2</option>
-                                <option value="3">Transportista 3</option>
+                            <select class="form-select" id="transportista" name="transportista_vj" required>
+                                <% transportista.forEach(tr=> { %>
+                                    <option value="<%= tr.tr_id %>" data-tarifa="<%= tr.tr_tarifa %>">
+                                        <%= tr.tr_nombre %>
+                                    </option>
+                                    <% }); %>
                             </select>
                         </div>
 
-                        <!-- Tarifa del transportista -->
-                        <div class="mb-3">
-                            <label class="form-label">Tarifa del transportista</label>
-                            <input type="text" class="form-control tarifa-transportista-input" id="tarifaTransportista"
-                                name="tarifa_transportista" readonly>
+                        <div class=" mb-3">
+                            <label class="form-label">Tarifa del transportista por km</label>
+                            <input type="text" class="form-control tarifa-transportista-input" id="tarifa"
+                                name="tarifa_vj" readonly>
                         </div>
 
 
-                        <!-- Costo total del viaje -->
+                       
                         <div class="mb-3">
                             <label class="form-label">Costo total del viaje</label>
-                            <input type="text" class="form-control" id="costoViaje" name="costo_viaje" readonly>
+                            <input type="text" class="form-control" id="costoViaje" name="costo_vj" readonly>
                         </div>
 
-                        <!-- Botones -->
+                      
                         <div class="d-flex justify-content-between mt-4">
                             <button type="submit" class="btn btn-danger px-4">
                                 <i class="bi bi-save"></i> Guardar
                             </button>
-                            <button type="reset" class="btn btn-secondary px-4">
-                                <i class="bi bi-x-circle"></i> Limpiar
+                            <button type="button" class="btn btn-primary px-4" onclick="calcularCostoViaje()">
+                                <i class="bi bi-x-circle"></i> calcular
+                            </button>
+                             <button type="reset" class="btn btn-secondary px-4">
+                                <i class="bi bi-x-circle"></i> limpiar
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
 
+        <script>
+
+            let dni = null;
+
+            document.getElementById('sucursalSelect').addEventListener('change', async function () {
+                const sucursalId = this.value;
+                const response = await fetch(`/viajes/${sucursalId}`);
+                const colaboradores = await response.json();
+
+                const selectColab = document.getElementById('colaboradorSelect');
+                selectColab.innerHTML = '<option value="">Seleccione un colaborador</option>';
+
+                colaboradores.forEach(c => {
+                    const option = document.createElement('option');
+                    option.value = c.cl_cedula;
+                    option.textContent = c.cl_nombre;
+                    selectColab.appendChild(option);
+                });
+
+
+            });
+
+
+            document.getElementById('colaboradorSelect').addEventListener('change', async function () {
+                const cedula = '0502200203769'; //dato estatico para prueba debido a que no toma el this.value;
+                const sucursalId = document.getElementById('sucursalSelect').value;
+
+                if (cedula && sucursalId) {
+                    const response = await fetch(`/viajes/distancia/${cedula}/${sucursalId}`);
+                    const data = await response.json();
+                    document.getElementById('distanciaColab').value = data.distancia || '0';
+                   // calcularCostoViaje();
+                } else {
+                    document.getElementById('distanciaColab').value = '';
+                    document.getElementById('costoViaje').value = '';
+                }
+            });
+
+
+            function calcularCostoViaje(params) {
+                const distancia = parseFloat(document.getElementById('distanciaColab').value) || 0;
+                const tarifaSelect = parseInt(document.getElementById('tarifa').value) || 0;
+                const costoViaje = distancia * tarifaSelect;
+                document.getElementById('costoViaje').value = costoViaje.toFixed(2);
+            }
+
+
+
+        </script>
+
+
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.js"></script>
+        <script src="/js/viajes.js"></script>
 
     </div>
 
