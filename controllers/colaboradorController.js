@@ -12,7 +12,7 @@ const colaboradorController = {
     getAllColab: async (req, res) => {
         try {
             const colaboradores = await colaborador.findAll({
-                where: {cl_estado: 1}
+                where: { cl_estado: 1 }
             });
             const sucursales = await sucursal1.findAll();
             res.render('colaboradores', { colaboradores, sucursales, vista: null });
@@ -83,15 +83,26 @@ const colaboradorController = {
         try {
             const vista = await colaborador.findByPk(id);
             if (!vista) return res.status(404).send('Colaborador no encontrado');
+
+            /*const sucur = await sucursal1.findAll({
+                attributes: ["sc_nombre"],   // solo queremos el nombre
+                include: [{
+                    model: suc_col,
+                    attributes: [],            // no necesitamos columnas de la tabla intermedia
+                    where: { cl_cedula: id }
+                }]
+            });*/
+
             res.json(vista);
 
-            /* const [colaboradores, sucursales] = await Promise.all([
-                 colaborador.findAll(),
-                 sucursal1.findAll()
-             ]);
- 
-             // Renderiza la misma vista pero con vista lleno*/
-            res.render('colaboradores', { vista });
+            /*  const [colaboradores, sucursales] = await Promise.all([
+                  colaborador.findAll(),
+                  sucursal1.findAll(),
+  
+              ]);*/
+
+            //res.render('colaboradores', { vista, sucur });
+
         } catch (error) {
             console.error(error);
             res.status(500).send('Server error');

@@ -6,16 +6,13 @@ const viajes = sequelize.define('viajes', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
     },
     us_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
     sc_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    cl_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -27,9 +24,13 @@ const viajes = sequelize.define('viajes', {
         type: DataTypes.DECIMAL(7, 2),
         allowNull: false,
     },
+    vj_recorrido: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     vj_fecha: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     vj_estado: {
         type: DataTypes.TINYINT,

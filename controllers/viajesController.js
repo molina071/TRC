@@ -26,12 +26,12 @@ const viajesController = {
 
 
             const results = await sequelize.query(
-                `SELECT col.cl_nombre
+                `SELECT col.cl_nombre, col.cl_cedula
              FROM colaborador_sucursal AS cs
              INNER JOIN colaboradores AS col
              ON cs.cl_cedula = col.cl_cedula
              WHERE cs.sc_id = ?`,
-                { replacements: [id], type: sequelize.QueryTypes.SELECT }
+                { replacements: [id], type: sequelize.QueryTypes.SELECT } //aqui no me esta trallendo la cedulaaaa.
             );
 
             res.json(results);
@@ -65,9 +65,22 @@ const viajesController = {
 
     },
 
+    createViajes: async (req, res) => {
+        const { usuario_vj, sucursal_vj, transportista_vj, costo_vj, vj_recorrido } = req.body;
 
-
-
+        const results = await sequelize.query(
+            `SELECT us_id FROM usuarios
+             WHERE us_nombre = ?`,
+            { replacements: [usuario_vj], type: sequelize.QueryTypes.SELECT } //aqui no me esta trallendo la cedulaaaa.
+        );
+        try {
+            await viajes.create({ us_id: results[0].us_id, sc_id: sucursal_vj, tr_id: transportista_vj, vj_costo: costo_vj, vj_recorrido: vj_recorrido, vj_estado: 1 });
+            res.redirect('/viajes')
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('server error');
+        }
+    },
 
 
 

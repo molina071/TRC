@@ -67,6 +67,8 @@ app.get('/viajes/:id', viajesController.renderizarViajes);
 
 app.get('/viajes/distancia/:cedula/:sucursal', viajesController.obtenerDistancia);
 
+app.post('/viajes/create', viajesController.createViajes);
+
 
 
 

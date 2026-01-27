@@ -16,7 +16,7 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-   
+
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/dashboard1.css" rel="stylesheet">
     <link href="/css/colaboradores.css" rel="stylesheet">
@@ -27,14 +27,14 @@
 <body id="page-top">
 
 
- 
+
     <div id="wrapper" class="fondo">
 
-     
+
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:  #ff3131;">
 
 
-        
+
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
@@ -102,7 +102,7 @@
                 </div>
             </li>
 
-            
+
             <hr class="sidebar-divider d-none d-md-block">
 
         </ul>
@@ -172,7 +172,6 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Direccion</th>
-                        <th scope="col">Estado</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Eliminar</th>
 
@@ -195,9 +194,6 @@
                                 <%=colaborador.cl_direccion%>
                             </td>
                             <td>
-                                <%=colaborador.cl_estado%>
-                            </td>
-                            <td>
 
                                 <button class="btn btn-warning btn-editar"
                                     data-id="<%= colaborador.cl_cedula %>">Editar</button>
@@ -205,13 +201,12 @@
 
                             <td>
 
-                                <form action="/colaboradores/delete/<%= colaborador.cl_cedula %>" method="POST" style="display:inline;">
+                                <form action="/colaboradores/delete/<%= colaborador.cl_cedula %>" method="POST"
+                                    style="display:inline;">
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="bi bi-pencil"></i> Eliminar
                                     </button>
                                 </form>
-
-                               
 
                             </td>
                         </tr>
@@ -234,17 +229,18 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>Cédula</label>
-                                <input type="text" name="up_cedula" id="up_cedula" class="form-control">
+                                <input type="text" name="up_cedula" id="up_cedula" class="form-control" readonly>
                             </div>
                             <div class="mb-3">
                                 <label>Sucursal</label>
                                 <select name="up_sucursal" id="up_sucursal" class="form-select" required>
+                                    <option>Seleccione una sucursal</option>
 
                                     <%sucursales.forEach(sucursal=> { %>
-                                        <option value="<%=sucursal.sc_id%>">
-                                            <%=sucursal.sc_nombre%>
-                                        </option>
-                                        <% }); %>
+                                            <option value="<%=sucursal.sc_id%>">
+                                                <%=sucursal.sc_nombre%>
+                                            </option>
+                                            <% }); %>
 
                                 </select>
                             </div>
@@ -274,30 +270,6 @@
         </div>
 
 </body>
-
-<script>
-    document.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const id = btn.dataset.id;
-
-            
-            const res = await fetch(`/colaboradores/update/${id}`);
-            const data = await res.json();
-
-            // Rellenar formulario
-            document.getElementById('up_cedula').value = data.cl_cedula;
-            //document.getElementById('sucursal').value = data.sucursal;
-            document.getElementById('up_nombre').value = data.cl_nombre;
-            document.getElementById('up_apellido').value = data.cl_apellido;
-            document.getElementById('up_direccion').value = data.cl_direccion;
-            document.getElementById('up_distancia').value = 0;
-
-            const modal = new bootstrap.Modal(document.getElementById('modalColaborador'));
-            modal.show();
-        });
-    });
-
-</script>
 
 
 <script src="/js/colaboradores.js"></script>
