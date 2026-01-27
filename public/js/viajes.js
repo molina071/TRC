@@ -25,11 +25,11 @@ document.getElementById('sucursalSelect').addEventListener('change', function ()
                 });
 
                 //RESET AL MOMENTO DE CAMBIAR DE SUCURSAL.
-                document.getElementById('distanciaColab').value = 0;
+                document.getElementById('distanciaColab').value = null;
                 acum = 0;
-                document.getElementById('tarifa').value = 0;
+                document.getElementById('tarifa').value = null;
                 costoViaje = 0;
-                document.getElementById('costoViaje').value = 0;
+                document.getElementById('costoViaje').value = null;
                 document.getElementById('transportista').selectedIndex = 0;
                 
 

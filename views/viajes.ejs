@@ -128,7 +128,7 @@
                         <div class="mb-3">
                             <label class="form-label">Viaje Registrado por:</label>
                             <input type="text" class="form-control" name="usuario_vj" value="<%= usuario.us_nombre %>"
-                                readonly>
+                                readonly required>
                         </div>
 
                         <div class="mb-3">
@@ -146,14 +146,14 @@
 
                         <div class="mb-3">
                             <label class="form-label">Colaborador</label>
-                            <select class="form-select" id="colaboradorSelect" name="colaborador_vj" multiple size="">
-                            </select>
+                            <select class="form-select" id="colaboradorSelect" name="colaborador_vj" multiple size="" required>
+                            </select>   
                         </div>
 
 
                         <div class="mb-3">
-                            <label class="form-label">Distancia (km)</label>
-                            <input type="text" class="form-control" id="distanciaColab" name="vj_recorrido" readonly>
+                            <label class="form-label">Recorrido (km)</label>
+                            <input type="text" class="form-control" id="distanciaColab" name="vj_recorrido" readonly required>
                         </div>
 
 
@@ -172,12 +172,12 @@
                         <div class=" mb-3">
                             <label class="form-label">Tarifa del transportista por km</label>
                             <input type="text" class="form-control tarifa-transportista-input" id="tarifa"
-                                name="tarifa_vj" readonly>
+                                name="tarifa_vj" readonly required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Costo total del viaje</label>
-                            <input type="text" class="form-control" id="costoViaje" name="costo_vj" readonly>
+                            <input type="text" class="form-control" id="costoViaje" name="costo_vj" readonly required>
                         </div>
 
 

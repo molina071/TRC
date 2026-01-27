@@ -11,6 +11,7 @@ const loginController = require('./controllers/loginController');
 const colaboradorController = require('./controllers/colaboradorController');
 const sucursalController = require('./controllers/sucursalController');
 const viajesController = require('./controllers/viajesController');
+const { where } = require('sequelize');
 
 //const userController = require('./controlador/usuarioControlador');
 const app = express();
@@ -18,9 +19,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
-  secret: "f93j2k!@#9sd8fjsd8fjsd8fj",
-  resave: false,
-  saveUninitialized: false
+    secret: "f93j2k!@#9sd8fjsd8fjsd8fj",
+    resave: false,
+    saveUninitialized: false
 }));
 
 //set up view engine
@@ -58,8 +59,16 @@ app.get('/viajes', async (req, res) => {
     if (!req.session.usuario) {
         return res.redirect('/login'); // si no hay sesión, redirige al login
     }
-    const sucursales = await sucursal1.findAll();
-    const transportista = await transportistas.findAll();
+    const sucursales = await sucursal1.findAll({
+        where: {
+            sc_estado: 1,
+        }
+    });
+    const transportista = await transportistas.findAll({
+        where: {
+            tr_estado: 1,
+        }
+    });
     res.render('viajes', { usuario: req.session.usuario, sucursales, transportista });
 });
 
