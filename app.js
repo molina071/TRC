@@ -29,6 +29,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
+//RENDERIZANDO VISTAS
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -46,6 +47,14 @@ app.get('/index', (req, res) => {
     res.render('index');
 });
 
+app.get('/transportistas', async (req, res) => {
+    res.render('transportistas');
+})
+
+app.get('/reportes', (req, res) => {
+    res.render('reportes');
+});
+
 
 //RUTAS TEMPORALES POR QUE NECESITO HACER CRUD DE COLABORADORES Y DE SUCURSALES
 app.get('/colaboradores', colaboradorController.getAllColab);
@@ -56,20 +65,25 @@ app.post('/colaboradores/delete/:id', colaboradorController.deleteColab);
 
 
 app.get('/viajes', async (req, res) => {
-    if (!req.session.usuario) {
-        return res.redirect('/login'); // si no hay sesión, redirige al login
+    if (req.session.usuario && req.session.usuario.rl_id == 1) {
+
+        const sucursales = await sucursal1.findAll({
+            where: {
+                sc_estado: 1,
+            }
+        });
+        const transportista = await transportistas.findAll({
+            where: {
+                tr_estado: 1,
+            }
+        });
+        res.render('viajes', { usuario: req.session.usuario, sucursales, transportista });
+
+    } else {
+        res.status(403).send('Acceso denegado');
+
     }
-    const sucursales = await sucursal1.findAll({
-        where: {
-            sc_estado: 1,
-        }
-    });
-    const transportista = await transportistas.findAll({
-        where: {
-            tr_estado: 1,
-        }
-    });
-    res.render('viajes', { usuario: req.session.usuario, sucursales, transportista });
+
 });
 
 app.get('/viajes/:id', viajesController.renderizarViajes);
@@ -77,13 +91,6 @@ app.get('/viajes/:id', viajesController.renderizarViajes);
 app.get('/viajes/distancia/:cedula/:sucursal', viajesController.obtenerDistancia);
 
 app.post('/viajes/create', viajesController.createViajes);
-
-
-
-
-app.get('/reportes', (req, res) => {
-    res.render('reportes');
-});
 
 
 app.post('/user/login', loginController.login);

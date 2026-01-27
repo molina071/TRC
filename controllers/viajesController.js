@@ -31,7 +31,7 @@ const viajesController = {
              INNER JOIN colaboradores AS col
              ON cs.cl_cedula = col.cl_cedula
              WHERE cs.sc_id = ? AND col.cl_estado = 1`,
-                { replacements: [id], type: sequelize.QueryTypes.SELECT } //aqui no me esta trallendo la cedulaaaa.
+                { replacements: [id], type: sequelize.QueryTypes.SELECT }
             );
 
             res.json(results);
@@ -76,14 +76,17 @@ const viajesController = {
             throw new Error('El recorrido no puede exceder los 100km o estar vacio');
         }
 
-        const results = await sequelize.query(
-            `SELECT us_id FROM usuarios
-             WHERE us_nombre = ?`,
-            { replacements: [usuario_vj], type: sequelize.QueryTypes.SELECT } //aqui no me esta trallendo la cedulaaaa.
-        );
         try {
+
+            const results = await sequelize.query( //try
+                `SELECT us_id FROM usuarios
+             WHERE us_nombre = ?`,
+                { replacements: [usuario_vj], type: sequelize.QueryTypes.SELECT } 
+            );
+
             await viajes.create({ us_id: results[0].us_id, sc_id: sucursal_vj, tr_id: transportista_vj, vj_costo: costo_vj, vj_recorrido: vj_recorrido, vj_estado: 1 });
             res.redirect('/viajes')
+
         } catch (error) {
             console.error(error);
             res.status(500).send('server error');
