@@ -52,7 +52,6 @@ SelectDinamico.addEventListener('change', async function () {
         const opcionSeleccionada = SelectDinamico.options[SelectDinamico.selectedIndex];
         opcionSeleccionada.remove();
 
-
     } else {
         document.getElementById('distanciaColab').value = '';
         document.getElementById('costoViaje').value = '';

@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>dashboard</title>
+    <title>dashboard Admin</title>
+
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -18,6 +19,7 @@
 
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/dashboard1.css" rel="stylesheet">
+    <link href="/css/reportes.css" rel="stylesheet">
 
 
 </head>
@@ -25,7 +27,9 @@
 <body id="page-top">
 
 
+
     <div id="wrapper" class="fondo">
+
 
 
 
@@ -51,14 +55,15 @@
                     <span>Dashboard</span></a>
             </li>
 
-
+            <!-- Divider -->
             <hr class="sidebar-divider">
 
-
+            <!-- Heading -->
             <div class="sidebar-heading ">
                 sucursales, colaboradores
             </div>
 
+            <!-- Gestiones de colaboradores y sucursales -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse"
                     aria-expanded="true" aria-controls="collapse">
@@ -77,14 +82,14 @@
                 </div>
             </li>
 
-
+            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <div class="sidebar-heading">
                 viajes, reportes
             </div>
 
-
+            <!-- Gestiones de viajes y reportes -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -101,21 +106,89 @@
                 </div>
             </li>
 
-
+            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
         </ul>
-        <img src="/images/logoBus.png" alt="fondo" class="fondoimg">
+
+        <div class="contenedor">
+            <h2>Reporte de Viajes</h2>
+
+            <!-- Filtros -->
+            <div class="filtros">
+                <div>
+                    <label for="fechaInicio">Fecha inicio:</label>
+                    <input type="date" id="fechaInicio">
+                </div>
+                <div>
+                    <label for="fechaFin">Fecha fin:</label>
+                    <input type="date" id="fechaFin">
+                </div>
+            </div>
+
+            <table id="miTabla" class="display">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Detalle</th>
+                        <th>Destino</th>
+                        <th>Duración</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Juan</td>
+                        <td>2026-01-25</td>
+                        <td>Viaje A</td>
+                        <td>Tegucigalpa</td>
+                        <td>2 días</td>
+                        <td>Activo</td>
+                        <td>Ninguna</td>
+                    </tr>
+                    <tr>
+                        <td>Maria</td>
+                        <td>2026-01-26</td>
+                        <td>Viaje B</td>
+                        <td>San Pedro</td>
+                        <td>1 día</td>
+                        <td>Activo</td>
+                        <td>Urgente</td>
+                    </tr>
+                    <tr>
+                        <td>Pedro</td>
+                        <td>2026-01-27</td>
+                        <td>Viaje C</td>
+                        <td>La Ceiba</td>
+                        <td>3 días</td>
+                        <td>Finalizado</td>
+                        <td>Revisión</td>
+                    </tr>
+                    <tr>
+                        <td>Juan</td>
+                        <td>2026-01-28</td>
+                        <td>Viaje D</td>
+                        <td>Santa Bárbara</td>
+                        <td>1 día</td>
+                        <td>Activo</td>
+                        <td>Sin novedades</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/reportes.js"></script>
 </body>
 
 </html>
