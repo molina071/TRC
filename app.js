@@ -7,10 +7,12 @@ const sucursal1 = require('./models/sucursalesModel');
 const transportistas = require('./models/transportistasModel');
 
 //importacion de controladores.
+
 const loginController = require('./controllers/loginController');
 const colaboradorController = require('./controllers/colaboradorController');
 const sucursalController = require('./controllers/sucursalController');
 const viajesController = require('./controllers/viajesController');
+const reportesController = require('./controllers/reportesController');
 const { where } = require('sequelize');
 
 //const userController = require('./controlador/usuarioControlador');
@@ -30,6 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
 //RENDERIZANDO VISTAS
+
+
+app.post('/user/login', loginController.login);
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -51,9 +56,7 @@ app.get('/transportistas', async (req, res) => {
     res.render('transportistas');
 })
 
-app.get('/reportes', (req, res) => {
-    res.render('reportes');
-});
+
 
 
 //RUTAS TEMPORALES POR QUE NECESITO HACER CRUD DE COLABORADORES Y DE SUCURSALES
@@ -64,6 +67,7 @@ app.post('/colaboradores/update', colaboradorController.updateColab);
 app.post('/colaboradores/delete/:id', colaboradorController.deleteColab);
 
 
+//RUTAS DE VIAJES
 app.get('/viajes', async (req, res) => {
     if (req.session.usuario && req.session.usuario.rl_id == 1) {
 
@@ -87,13 +91,12 @@ app.get('/viajes', async (req, res) => {
 });
 
 app.get('/viajes/:id', viajesController.renderizarViajes);
-
 app.get('/viajes/distancia/:cedula/:sucursal', viajesController.obtenerDistancia);
-
 app.post('/viajes/create', viajesController.createViajes);
 
 
-app.post('/user/login', loginController.login);
+//RUTAS DE REPORTES 
+app.get('/reportes', reportesController.getAllViajes);
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
