@@ -41,7 +41,6 @@ const viajesController = {
 
     },
 
-
     obtenerDistancia: async (req, res) => {
         const { cedula, sucursal } = req.params; // cedula y sucursal id desde la ruta
         try {

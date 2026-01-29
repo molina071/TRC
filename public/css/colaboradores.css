@@ -129,6 +129,7 @@ select {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 30px;
 }
 
 .btn-submit:hover {
@@ -143,4 +144,19 @@ select {
     top: 15px;
     right: 20px;
     cursor: pointer;
+}
+
+.botonActualizar {
+    width: 100%;
+    padding: 12px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal-title {
+    margin-left: 20%;
 }

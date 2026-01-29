@@ -84,24 +84,18 @@ const colaboradorController = {
             const vista = await colaborador.findByPk(id);
             if (!vista) return res.status(404).send('Colaborador no encontrado');
 
-            /*const sucur = await sucursal1.findAll({
-                attributes: ["sc_nombre"],   // solo queremos el nombre
-                include: [{
-                    model: suc_col,
-                    attributes: [],            // no necesitamos columnas de la tabla intermedia
-                    where: { cl_cedula: id }
-                }]
-            });*/
+            const results = await sequelize.query(
+                `
+                  SELECT suc.sc_nombre, suc.sc_id FROM sucursales AS suc
+                  INNER JOIN colaborador_sucursal AS cs
+                  ON suc.sc_id = cs.sc_id
+                  INNER JOIN colaboradores AS col
+                  ON col.cl_cedula = cs.cl_cedula
+                  WHERE col.cl_cedula = ?`,
+                { replacements: [id], type: sequelize.QueryTypes.SELECT }
+            );
 
-            res.json(vista);
-
-            /*  const [colaboradores, sucursales] = await Promise.all([
-                  colaborador.findAll(),
-                  sucursal1.findAll(),
-  
-              ]);*/
-
-            //res.render('colaboradores', { vista, sucur });
+            res.json({vista, results});
 
         } catch (error) {
             console.error(error);
@@ -136,7 +130,7 @@ const colaboradorController = {
 
             await suc_col.update(
                 { sc_id: up_sucursal, distancia: up_distancia },
-                { where: { cl_cedula: up_cedula, sc_id: up_sucursal}, transaction: t }
+                { where: { cl_cedula: up_cedula, sc_id: up_sucursal }, transaction: t }
             );
 
             await t.commit();
