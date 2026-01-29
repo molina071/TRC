@@ -5,7 +5,8 @@ const transportistas = sequelize.define('transportistas', {
     tr_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
+        autoIncrement: true,
+        allowNull: true,
     },
     tr_nombre: {
         type: DataTypes.STRING,

@@ -13,6 +13,7 @@ const colaboradorController = require('./controllers/colaboradorController');
 const sucursalController = require('./controllers/sucursalController');
 const viajesController = require('./controllers/viajesController');
 const reportesController = require('./controllers/reportesController');
+const transportistaController = require('./controllers/transportistaController');
 const { where } = require('sequelize');
 
 //const userController = require('./controlador/usuarioControlador');
@@ -52,9 +53,7 @@ app.get('/index', (req, res) => {
     res.render('index');
 });
 
-app.get('/transportistas', async (req, res) => {
-    res.render('transportistas');
-})
+
 
 
 
@@ -103,11 +102,16 @@ app.get('/sucursales', sucursalController.getAllSucursales);
 app.post('/sucursales/create', sucursalController.createSucursal);
 app.get('/sucursales/update/:id', sucursalController.updateSucursalForm);
 app.post('/sucursales/update', sucursalController.updateSucursal);
-
-
 app.post('/sucursales/delete/:id', sucursalController.deleteSucur);
-//app.post('/sucursales/update', colaboradorController.updateColab);
 
+//RUTAS REPORTES
+
+
+app.get('/transportistas', transportistaController.getAllTransportistas);
+app.post('/transportistas/create', transportistaController.createTransportista);
+app.get('/transportistas/update/:id', transportistaController.updateTransportistaForm);
+app.post('/transportistas/delete/:id', transportistaController.deleteTransport);
+app.post('/transportistas/update', transportistaController.updateTransportista);
 
 
 const PORT = process.env.PORT || 3000;
