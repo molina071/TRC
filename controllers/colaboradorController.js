@@ -110,7 +110,6 @@ const colaboradorController = {
     },
 
     updateColab: async (req, res) => {
-        // const { id } = req.params; //aqui puedo aplicar la cedula sin problema
         const { up_cedula, up_sucursal, up_nombre, up_apellido, up_direccion, up_distancia } = req.body;
         //validaciones
         if (!up_sucursal) throw new Error('Debe seleccionar una sucursal');
@@ -130,10 +129,16 @@ const colaboradorController = {
             if (!suc) throw new Error('La sucursal no existe');
 
             // Insertar en la tabla intermedia con distancia
+            /* await suc_col.update(
+                 { cl_cedula: updateColab.cl_cedula, sc_id: up_sucursal, distancia: up_distancia },
+                 { where: { cl_cedula: up_cedula }, transaction: t }
+             );*/
+
             await suc_col.update(
-                { cl_cedula: updateColab.cl_cedula, sc_id: up_sucursal, distancia: up_distancia },
-                { where: { cl_cedula: up_cedula }, transaction: t }
+                { sc_id: up_sucursal, distancia: up_distancia },
+                { where: { cl_cedula: up_cedula, sc_id: up_sucursal}, transaction: t }
             );
+
             await t.commit();
             res.redirect('/colaboradores');
 

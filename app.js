@@ -98,6 +98,17 @@ app.post('/viajes/create', viajesController.createViajes);
 //RUTAS DE REPORTES 
 app.get('/reportes', reportesController.getAllViajes);
 
+//RUTAS DE SUCURSALES
+app.get('/sucursales', sucursalController.getAllSucursales);
+app.post('/sucursales/create', sucursalController.createSucursal);
+app.get('/sucursales/update/:id', sucursalController.updateSucursalForm);
+
+/*app.post('/sucursales/update', colaboradorController.updateColab);
+app.post('/sucursales/delete/:id', colaboradorController.deleteColab);*/
+
+
+
+
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
