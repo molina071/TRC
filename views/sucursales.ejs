@@ -26,12 +26,7 @@
 
 <body id="page-top">
 
-
-
     <div id="wrapper" class="fondo">
-
-
-
 
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:  #ff3131;">
 
@@ -122,7 +117,8 @@
                     <input type="text" class="input" placeholder="Buscar colaborador" name="correo"
                         style="width: 1000px;">
                     <button type="submit" class="btn btn-success buscar">Buscar</button>
-                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Registrar Sucursal</button>
+                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Registrar
+                        Sucursal</button>
                 </div>
             </form>
         </div>
@@ -161,26 +157,29 @@
                 </thead>
                 <tbody>
 
-                    <%sucursales.forEach(sc=> { %>
+                    <%sucursales.forEach(scu=> { %>
                         <tr>
                             <td>
-                                <%=sc.sc_id%>
+                                <%=scu.sc_id%>
                             </td>
                             <td>
-                                <%=sc.sc_nombre%>
+                                <%=scu.sc_nombre%>
                             </td>
                             <td>
-                                <%=sc.sc_direccion%>
+                                <%=scu.sc_direccion%>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-editar" data-id="<%= sc.sc_id %>">Actualizar</button>
+                                <button class="btn btn-warning btn-editar"
+                                    data-id="<%= scu.sc_id %>">Actualizar</button>
                             </td>
 
                             <td>
-                                <form action="/sucursales/delete/<%=sc.sc_id%>" method="POST" style="display:inline;">
+                                <form action="/sucursales/delete/<%= scu.sc_id%>" method="POST" style="display:inline;">
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="bi bi-pencil"></i> Eliminar
                                     </button>
+                                </form>
+
                             </td>
                         </tr>
 
@@ -192,19 +191,19 @@
 
         <!-- NUEVO FORMULARIO OCULTO  PARA EDIT-->
 
-        <div class="modal fade" id="modalColaborador" tabindex="-1">
+        <div class="modal fade" id="modalSucursales" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="/colaboradores/update" method="POST">
+                    <form action="/sucursales/update" method="POST"> 
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Colaborador</h5>
+                            <h5 class="modal-title">Editar Sucursales</h5>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>ID</label>
-                                <input type="text" name="up_id" id="up_id" class="form-control" readonly>
+                                <input type="number" name="up_id" id="up_id" class="form-control" readonly>
                             </div>
-                        
+
                             <div class="mb-3">
                                 <label>Nombre</label>
                                 <input type="text" name="up_nombre" id="up_nombre" class="form-control">
@@ -215,7 +214,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="botonActualizar">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -223,14 +222,18 @@
         </div>
 
     </div>
-
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>\
-    <script src="/js/sucursales.js"></script>
 </body>
+<script src="/js/sucursales.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </html>

@@ -120,8 +120,7 @@
                     <input type="text" class="input" placeholder="Buscar colaborador..." name="correo"
                         style="width: 1000px;">
                     <button type="submit" class="btn btn-success buscar">Buscar</button>
-                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Administrar
-                        Sucursales</button>
+                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Registrar Colaborador</button>
                 </div>
             </form>
         </div>
@@ -197,7 +196,7 @@
                             <td>
 
                                 <button class="btn btn-warning btn-editar"
-                                    data-id="<%= colaborador.cl_cedula %>">Actualizar</button>
+                                    data-id="<%= colaborador.cl_cedula %>">Administrar</button>
                             </td>
 
                             <td>
@@ -235,8 +234,7 @@
                             <div class="mb-3">
                                 <label>Sucursal</label>
                                 <select name="up_sucursal" id="up_sucursal" class="form-select" required>
-                                    <option>Seleccione una sucursal</option>
-
+                            
                                     <%sucursales.forEach(sucursal=> { %>
                                         <option value="<%=sucursal.sc_id%>">
                                             <%=sucursal.sc_nombre%>

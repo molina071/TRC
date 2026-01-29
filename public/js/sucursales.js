@@ -12,19 +12,28 @@ overlay.addEventListener("click", function (e) {
 });
 
 
-document.querySelectorAll('.btn-editar').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const id = btn.dataset.id;
 
-    const res = await fetch(`/sucursales/update/${id}`);
-    const data = await res.json();
+  document.querySelectorAll('.btn-editar').forEach(btn => {
+    btn.addEventListener('click', async () => {
 
-    // Rellenar formulario
-    document.getElementById('up_id').value = data.cl_cedula;
-    document.getElementById('up_nombre').value = data.cl_nombre;
-    document.getElementById('up_direccion').value = data.cl_direccion;
+      const id = btn.dataset.id;
 
-    const modal = new bootstrap.Modal(document.getElementById('modalColaborador'));
-    modal.show();
+      const res = await fetch(`/sucursales/update/${id}`);
+      //alert(res);
+      const data = await res.json();
+
+      // Rellenar formulario
+      document.getElementById('up_id').value = data.sc_id;
+      document.getElementById('up_nombre').value = data.sc_nombre;
+      document.getElementById('up_direccion').value = data.sc_direccion;
+
+      const modal = new bootstrap.Modal(document.getElementById('modalSucursales'));
+      modal.show();
+
+    });
   });
-});
+
+
+
+
+

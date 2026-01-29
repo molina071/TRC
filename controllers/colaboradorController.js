@@ -91,7 +91,7 @@ const colaboradorController = {
                   ON suc.sc_id = cs.sc_id
                   INNER JOIN colaboradores AS col
                   ON col.cl_cedula = cs.cl_cedula
-                  WHERE col.cl_cedula = ?`,
+                  WHERE col.cl_cedula = ? AND suc.sc_estado = 1`,
                 { replacements: [id], type: sequelize.QueryTypes.SELECT }
             );
 

@@ -102,10 +102,11 @@ app.get('/reportes', reportesController.getAllViajes);
 app.get('/sucursales', sucursalController.getAllSucursales);
 app.post('/sucursales/create', sucursalController.createSucursal);
 app.get('/sucursales/update/:id', sucursalController.updateSucursalForm);
+app.post('/sucursales/update', sucursalController.updateSucursal);
 
-/*app.post('/sucursales/update', colaboradorController.updateColab);
-app.post('/sucursales/delete/:id', colaboradorController.deleteColab);*/
 
+app.post('/sucursales/delete/:id', sucursalController.deleteSucur);
+//app.post('/sucursales/update', colaboradorController.updateColab);
 
 
 
