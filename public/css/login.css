@@ -1,4 +1,3 @@
-
 .login {
     width: 350px;
     /* Ajusta el ancho del formulario */
@@ -53,16 +52,15 @@
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  background-color: #ff3131;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    background-color: #ff3131;
 }
 
-.welcome{
+.welcome {
     font-family: 'Times New Roman', Times, serif;
     font-size: 34px;
-}

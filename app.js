@@ -53,6 +53,18 @@ app.get('/index', (req, res) => {
     res.render('index');
 });
 
+//CERRAR SESION
+app.get('/cerrar', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.redirect('/');
+        }
+        res.clearCookie('connect.sid'); 
+        res.redirect('/index'); 
+    });
+});
+
+
 
 
 
@@ -106,7 +118,7 @@ app.post('/sucursales/delete/:id', sucursalController.deleteSucur);
 
 //RUTAS REPORTES
 
-
+//RUTAS DE TRANSPORTISTAS 
 app.get('/transportistas', transportistaController.getAllTransportistas);
 app.post('/transportistas/create', transportistaController.createTransportista);
 app.get('/transportistas/update/:id', transportistaController.updateTransportistaForm);

@@ -30,12 +30,12 @@ document.querySelectorAll('.btn-editar').forEach(btn => {
 
     selectSucursal.innerHTML = "";
 
-  
+
     const headerOption = document.createElement('option');
-    headerOption.textContent = "Sucursales en las que trabaja..."; 
-    headerOption.value = "";       
-    headerOption.disabled = true;  
-    headerOption.selected = true; 
+    headerOption.textContent = "Sucursales en las que trabaja...";
+    headerOption.value = "";
+    headerOption.disabled = true;
+    headerOption.selected = true;
     selectSucursal.appendChild(headerOption);
 
 
@@ -69,4 +69,18 @@ document.getElementById('up_sucursal').addEventListener('change', async function
     document.getElementById('up_distancia').value = '';
     document.getElementById('costoViaje').value = '';
   }
+});
+
+document.getElementById("buscar").addEventListener("keyup", function () {
+  let filtro = this.value.toLowerCase();
+  let filas = document.querySelectorAll("#tablaColab tbody tr");
+
+  filas.forEach(fila => {
+    let textoFila = fila.textContent.toLowerCase();
+    if (textoFila.includes(filtro)) {
+      fila.style.display = "";   // Mostrar
+    } else {
+      fila.style.display = "none"; // Ocultar
+    }
+  });
 });
