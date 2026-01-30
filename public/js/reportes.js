@@ -3,11 +3,16 @@ $(document).ready(function () {
         paging: true
     });
 
+    table.on('draw', function () {
+        actualizarCosto();
+    })
+
     // Filtro personalizado por rango de fechas
     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
         const fechaInicio = $('#fechaInicio').val();
         const fechaFin = $('#fechaFin').val();
         const fechaColumna = data[5];
+
 
         if (!fechaInicio && !fechaFin) {
             return true; // si no hay filtros, mostrar todo
