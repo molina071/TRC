@@ -71,10 +71,9 @@ const viajesController = {
             throw new Error('El costo no puede ser 0');
         }
 
-        if (vj_recorrido > 100 || vj_recorrido <= 0) {
+        if (vj_recorrido > 150 || vj_recorrido <= 0) {
             throw new Error('El recorrido no puede exceder los 100km o estar vacio');
         }
-
         try {
 
             const results = await sequelize.query( //try

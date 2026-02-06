@@ -27,7 +27,7 @@ const colaboradorController = {
     createColab: async (req, res) => {
         const { cedula, sucursal, nombre, apellido, direccion, distancia } = req.body;
         if (!sucursal) throw new Error('Debe seleccionar una sucursal');
-        if (!Number.isInteger(+distancia) || +distancia < 1 || +distancia > 50) {
+        if (!Number.isInteger(+distancia) || +distancia < 1 || +distancia > 75) {
             throw new Error('La distancia debe ser entre 1 y 50');
         }
 
