@@ -16,7 +16,7 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-   
+
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/dashboard1.css" rel="stylesheet">
     <link href="/css/colaboradores.css" rel="stylesheet">
@@ -27,15 +27,15 @@
 <body id="page-top">
 
 
- 
+
     <div id="wrapper" class="fondo">
 
-     
+
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:  #ff3131;">
 
 
-        
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboardAdmin">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -46,7 +46,7 @@
 
             <!-- DIVISOR -->
             <li class="nav-item active dash">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="/dashboardAdmin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -73,6 +73,7 @@
                         <h6 class="collapse-header">opciones:</h6>
                         <a class="collapse-item" href="/colaboradores">administrar colaboradores</a>
                         <a class="collapse-item" href="/sucursales">administrar sucursales</a>
+                        <a class="collapse-item" href="/transportistas">administrar transportistas</a>
                     </div>
                 </div>
             </li>
@@ -102,8 +103,15 @@
                 </div>
             </li>
 
-            
+
             <hr class="sidebar-divider d-none d-md-block">
+
+            <form action="/cerrar">
+                <button class="cerrarSesion" style="background-color: #ff3131; border: none;  margin-top: 400px;">
+                    <img src="/images/cerrarSesion.png" alt="Cerrar sesión"
+                        style="width: 50px; height: 50px; margin-left: 65px;">
+                </button>
+            </form>
 
         </ul>
 
@@ -117,10 +125,10 @@
                 <!--NO OLVIDAR DEFINIR LA RUTA AQUI Y EL METODO POST-->
                 <div class="mb-3">
                     <input type="text" class="input" placeholder="Buscar colaborador..." name="correo"
-                        style="width: 1000px;">
-                    <button type="submit" class="btn btn-success buscar">Buscar</button>
-                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Administrar
-                        Sucursales</button>
+                        style="width: 1000px;" id="buscar">
+                    <button type="submit" class="btn btn-success buscar">limpiar</button>
+                    <button type="button" class="btn btn-primary crear" onclick="toggleForm()">Registrar
+                        Colaborador</button>
                 </div>
             </form>
         </div>
@@ -165,14 +173,13 @@
         <!--TABLA DEL CRUD-->
 
         <div class="table-responsive px-5 py-3 tabla">
-            <table class="table table-striped table-hover align-middle">
+            <table class="table table-striped table-hover align-middle" id="tablaColab">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Direccion</th>
-                        <th scope="col">Estado</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Eliminar</th>
 
@@ -195,23 +202,19 @@
                                 <%=colaborador.cl_direccion%>
                             </td>
                             <td>
-                                <%=colaborador.cl_estado%>
-                            </td>
-                            <td>
 
                                 <button class="btn btn-warning btn-editar"
-                                    data-id="<%= colaborador.cl_cedula %>">Editar</button>
+                                    data-id="<%= colaborador.cl_cedula %>">Administrar</button>
                             </td>
 
                             <td>
 
-                                <form action="/colaboradores/delete/<%= colaborador.cl_cedula %>" method="POST" style="display:inline;">
+                                <form action="/colaboradores/delete/<%= colaborador.cl_cedula %>" method="POST"
+                                    style="display:inline;">
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="bi bi-pencil"></i> Eliminar
                                     </button>
                                 </form>
-
-                               
 
                             </td>
                         </tr>
@@ -229,12 +232,12 @@
                 <div class="modal-content">
                     <form action="/colaboradores/update" method="POST">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Colaborador</h5>
+                            <h2 class="modal-title">Editar Colaborador</h2>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>Cédula</label>
-                                <input type="text" name="up_cedula" id="up_cedula" class="form-control">
+                                <input type="text" name="up_cedula" id="up_cedula" class="form-control" readonly>
                             </div>
                             <div class="mb-3">
                                 <label>Sucursal</label>
@@ -266,38 +269,16 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="botonActualizar">Actualizar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
+    </div>
+
 </body>
-
-<script>
-    document.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const id = btn.dataset.id;
-
-            
-            const res = await fetch(`/colaboradores/update/${id}`);
-            const data = await res.json();
-
-            // Rellenar formulario
-            document.getElementById('up_cedula').value = data.cl_cedula;
-            //document.getElementById('sucursal').value = data.sucursal;
-            document.getElementById('up_nombre').value = data.cl_nombre;
-            document.getElementById('up_apellido').value = data.cl_apellido;
-            document.getElementById('up_direccion').value = data.cl_direccion;
-            document.getElementById('up_distancia').value = 0;
-
-            const modal = new bootstrap.Modal(document.getElementById('modalColaborador'));
-            modal.show();
-        });
-    });
-
-</script>
 
 
 <script src="/js/colaboradores.js"></script>

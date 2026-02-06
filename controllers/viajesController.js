@@ -26,11 +26,11 @@ const viajesController = {
 
 
             const results = await sequelize.query(
-                `SELECT col.cl_nombre
+                `SELECT col.cl_nombre, col.cl_cedula
              FROM colaborador_sucursal AS cs
              INNER JOIN colaboradores AS col
              ON cs.cl_cedula = col.cl_cedula
-             WHERE cs.sc_id = ?`,
+             WHERE cs.sc_id = ? AND col.cl_estado = 1`,
                 { replacements: [id], type: sequelize.QueryTypes.SELECT }
             );
 
@@ -40,7 +40,6 @@ const viajesController = {
         }
 
     },
-
 
     obtenerDistancia: async (req, res) => {
         const { cedula, sucursal } = req.params; // cedula y sucursal id desde la ruta
@@ -65,9 +64,32 @@ const viajesController = {
 
     },
 
+    createViajes: async (req, res) => {
+        const { usuario_vj, sucursal_vj, transportista_vj, costo_vj, vj_recorrido } = req.body;
 
+        if (costo_vj == 0 || costo_vj == null) {
+            throw new Error('El costo no puede ser 0');
+        }
 
+        if (vj_recorrido > 150 || vj_recorrido <= 0) {
+            throw new Error('El recorrido no puede exceder los 100km o estar vacio');
+        }
+        try {
 
+            const results = await sequelize.query( //try
+                `SELECT us_id FROM usuarios
+             WHERE us_nombre = ?`,
+                { replacements: [usuario_vj], type: sequelize.QueryTypes.SELECT } 
+            );
+
+            await viajes.create({ us_id: results[0].us_id, sc_id: sucursal_vj, tr_id: transportista_vj, vj_costo: costo_vj, vj_recorrido: vj_recorrido, vj_estado: 1 });
+            res.redirect('/viajes')
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('server error');
+        }
+    },
 
 
 

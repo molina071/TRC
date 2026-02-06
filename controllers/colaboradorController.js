@@ -12,7 +12,7 @@ const colaboradorController = {
     getAllColab: async (req, res) => {
         try {
             const colaboradores = await colaborador.findAll({
-                where: {cl_estado: 1}
+                where: { cl_estado: 1 }
             });
             const sucursales = await sucursal1.findAll();
             res.render('colaboradores', { colaboradores, sucursales, vista: null });
@@ -27,7 +27,7 @@ const colaboradorController = {
     createColab: async (req, res) => {
         const { cedula, sucursal, nombre, apellido, direccion, distancia } = req.body;
         if (!sucursal) throw new Error('Debe seleccionar una sucursal');
-        if (!Number.isInteger(+distancia) || +distancia < 1 || +distancia > 50) {
+        if (!Number.isInteger(+distancia) || +distancia < 1 || +distancia > 75) {
             throw new Error('La distancia debe ser entre 1 y 50');
         }
 
@@ -83,15 +83,20 @@ const colaboradorController = {
         try {
             const vista = await colaborador.findByPk(id);
             if (!vista) return res.status(404).send('Colaborador no encontrado');
-            res.json(vista);
 
-            /* const [colaboradores, sucursales] = await Promise.all([
-                 colaborador.findAll(),
-                 sucursal1.findAll()
-             ]);
- 
-             // Renderiza la misma vista pero con vista lleno*/
-            res.render('colaboradores', { vista });
+            const results = await sequelize.query(
+                `
+                  SELECT suc.sc_nombre, suc.sc_id FROM sucursales AS suc
+                  INNER JOIN colaborador_sucursal AS cs
+                  ON suc.sc_id = cs.sc_id
+                  INNER JOIN colaboradores AS col
+                  ON col.cl_cedula = cs.cl_cedula
+                  WHERE col.cl_cedula = ? AND suc.sc_estado = 1`,
+                { replacements: [id], type: sequelize.QueryTypes.SELECT }
+            );
+
+            res.json({vista, results});
+
         } catch (error) {
             console.error(error);
             res.status(500).send('Server error');
@@ -99,7 +104,6 @@ const colaboradorController = {
     },
 
     updateColab: async (req, res) => {
-        // const { id } = req.params; //aqui puedo aplicar la cedula sin problema
         const { up_cedula, up_sucursal, up_nombre, up_apellido, up_direccion, up_distancia } = req.body;
         //validaciones
         if (!up_sucursal) throw new Error('Debe seleccionar una sucursal');
@@ -119,10 +123,16 @@ const colaboradorController = {
             if (!suc) throw new Error('La sucursal no existe');
 
             // Insertar en la tabla intermedia con distancia
+            /* await suc_col.update(
+                 { cl_cedula: updateColab.cl_cedula, sc_id: up_sucursal, distancia: up_distancia },
+                 { where: { cl_cedula: up_cedula }, transaction: t }
+             );*/
+
             await suc_col.update(
-                { cl_cedula: updateColab.cl_cedula, sc_id: up_sucursal, distancia: up_distancia },
-                { where: { cl_cedula: up_cedula }, transaction: t }
+                { sc_id: up_sucursal, distancia: up_distancia },
+                { where: { cl_cedula: up_cedula, sc_id: up_sucursal }, transaction: t }
             );
+
             await t.commit();
             res.redirect('/colaboradores');
 
